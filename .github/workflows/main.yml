@@ -46,7 +46,7 @@ jobs:
         run: gcloud compute instances start github-runner-debio-node-benchmark --zone=australia-southeast1-b
 
   self-host:
-    runs-on: [selft-host, benchmark]
+    runs-on: [self-hosted, benchmark]
     needs: start-runner
     steps:
       - name: Checkout code
