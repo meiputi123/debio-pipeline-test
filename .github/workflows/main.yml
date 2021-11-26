@@ -45,9 +45,20 @@ jobs:
       - name: start runner
         run: gcloud compute instances start github-runner-debio-node-benchmark --zone=australia-southeast1-b
 
+  self-host:
+    runs-on: [selft-host, benchmark]
+    needs: start-runner
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: hello
+        run: echo "hello from inside selft-host github runner!"
+
   stop-runner:
     runs-on: ubuntu-latest
-    needs: start-runner
+    needs: self-host
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
