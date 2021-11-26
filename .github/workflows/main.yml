@@ -40,8 +40,6 @@ jobs:
           project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
           export_default_credentials: true
-      - name: Use gcloud CLI
-        run: gcloud info
       - name: start runner
         run: gcloud compute instances start github-runner-debio-node-benchmark --zone=australia-southeast1-b
 
@@ -70,7 +68,5 @@ jobs:
           project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
           export_default_credentials: true
-      - name: Use gcloud CLI
-        run: gcloud info
       - name: stop runner
         run: gcloud compute instances stop github-runner-debio-node-benchmark --zone=australia-southeast1-b
