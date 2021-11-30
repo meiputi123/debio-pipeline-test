@@ -35,7 +35,7 @@ jobs:
           fetch-depth: 0
       - name: benchmarking
         if: ${{ github.event.issue.pull_request && github.event.comment.body == '/benchmark'}}
-        run: echo "Benchmark running!"
+        run: echo "Benchmarking!"
 
   stop-runner:
     runs-on: ubuntu-latest
