@@ -1,0 +1,6 @@
+export const COVID_19 = "https://gateway.pinata.cloud/ipfs/QmcEASf8BoztaFUKA68dmRQrECUakadmjEBwZXKQGroMaS"
+export const DRIED_BLOOD = "https://gateway.pinata.cloud/ipfs/QmVfsCe6qewW1tfGP5AXGBTYweHbivXeiEBzg3zD15C44e"
+export const URINE_COLLECTION = "https://gateway.pinata.cloud/ipfs/Qma8JohuAN4tdREsE3TitHmRDF3NNeHBrTYNxU7ouW6H75"
+export const FECAL_COLLECTION = "https://gateway.pinata.cloud/ipfs/QmRet9S5Mw6vQYtcwdRoqkogacurZGKCRm3Jimam7U8dJk"
+export const SALIVA_COLLECTION = "https://gateway.pinata.cloud/ipfs/Qme9SA1SmwVb91xkB7JnzuyZYnczUVn1NEfsS9hvKdxkFJ"
+export const BUCCAL_COLLECTION = "https://gateway.pinata.cloud/ipfs/Qmc1hYn3RCoTQRzZ1uCfqA1N9EfpnqgPGtdhCwjrEpgPPn"
