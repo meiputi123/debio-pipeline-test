@@ -35,7 +35,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/deploy-cloudrun@main
         with:
           project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
@@ -121,7 +121,7 @@ jobs:
           fetch-depth: 0
       - name: Set up Cloud SDK
         if: "${{ env.DEPLOY == 'true' }}"
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/deploy-cloudrun@main
         with:
           project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
