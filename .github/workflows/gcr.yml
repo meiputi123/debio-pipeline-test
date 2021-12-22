@@ -83,26 +83,34 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Authorize Docker push to gcr
         run: gcloud auth configure-docker --quiet
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          file: .maintain/docker/Dockerfile
-          tags: |
-            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
-            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:latest-pre-alpha
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-      # Temp fix
-      # https://github.com/docker/build-push-action/issues/252
-      # https://github.com/moby/buildkit/issues/1896
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+      - name: Build and Push Docker Image to Container Registry (GCR)
+        env:
+          IMAGE_TAG: gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
+        run: |-
+          dcker build -t $IMAGE_TAG
+          docker tag $IMAGE_TAG gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:latest-pre-alpha
+          docker push $IMAGE_TAG
+          docker push gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:latest-pre-alpha
+      # - name: Build and push
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     push: true
+      #     file: .maintain/docker/Dockerfile
+      #     tags: |
+      #       gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
+      #       gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:latest-pre-alpha
+      #     cache-from: type=local,src=/tmp/.buildx-cache
+      #     cache-to: type=local,dest=/tmp/.buildx-cache-new
+      # # Temp fix
+      # # https://github.com/docker/build-push-action/issues/252
+      # # https://github.com/moby/buildkit/issues/1896
+      # - name: Move cache
+      #   run: |
+      #     rm -rf /tmp/.buildx-cache
+      #     mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      # - name: Image digest
+      #   run: echo ${{ steps.docker_build.outputs.digest }}
 
   deploy:
     runs-on: ubuntu-latest
