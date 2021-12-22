@@ -85,7 +85,7 @@ jobs:
         run: gcloud auth configure-docker --quiet
       - name: Build and Push Docker Image to Container Registry (GCR)
         run: |-
-          docker build -t gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
+          docker build -t gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }} -f .maintain/docker/Dockerfile .
           docker tag gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }} gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:latest-pre-alpha
           docker push gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
           docker push gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:latest-pre-alpha
