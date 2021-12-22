@@ -81,7 +81,7 @@ jobs:
           key: ${{ runner.os }}-buildx-main
           restore-keys: |
             ${{ runner.os }}-buildx-
-        name: Login to GCR
+      - name: Login to GCR
         uses: docker/login-action@v1
         with:
           registry: gcr.io
