@@ -94,8 +94,8 @@ jobs:
           push: true
           file: .maintain/docker/Dockerfile
           tags: |
-            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
-            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:latest-pre-alpha
+            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
+            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/latest-pre-alpha
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       # Temp fix
