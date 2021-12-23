@@ -1,11 +1,11 @@
-const contractInfo = require("./contract.json")
+const contractInfo = require('./contract.json')
 
-const Degenics = require("./abi/Degenics.json")
-const DegenicsLog = require("./abi/DegenicsLog.json")
-const Location = require("./abi/Location.json")
-const Lab = require("./abi/Lab.json")
-const Account = require("./abi/Account.json")
-const Specimen = require("./abi/Specimen.json")
+const Degenics = require('./abi/Degenics.json')
+const DegenicsLog = require('./abi/DegenicsLog.json')
+const Location = require('./abi/Location.json')
+const Lab = require('./abi/Lab.json')
+const Account = require('./abi/Account.json')
+const Specimen = require('./abi/Specimen.json')
 
 const defaultState = {
   contractDegenics: null,
@@ -13,13 +13,13 @@ const defaultState = {
   contractLocation: null,
   contractLab: null,
   contractAccount: null,
-  contractSpecimen: null
+  contractSpecimen: null,
 }
 
 export default {
   namespaced: true,
   state: {
-    ...defaultState
+    ...defaultState,
   },
   mutations: {
     SET_CONTRACT_DEGENICS(state, contractDegenics){
@@ -52,12 +52,12 @@ export default {
       const specimenContract =  new web3.eth.Contract(Specimen, contractInfo.Specimen.address)
 
 
-      commit("SET_CONTRACT_DEGENICS", degenicsContract)
-      commit("SET_CONTRACT_DEGENICS_LOG", degenicsLogContract)
-      commit("SET_CONTRACT_LOCATION", locationContract)
-      commit("SET_CONTRACT_LAB", labContract)
-      commit("SET_CONTRACT_ACCOUNT", accountContract)
-      commit("SET_CONTRACT_SPECIMEN", specimenContract)
+      commit('SET_CONTRACT_DEGENICS', degenicsContract)
+      commit('SET_CONTRACT_DEGENICS_LOG', degenicsLogContract)
+      commit('SET_CONTRACT_LOCATION', locationContract)
+      commit('SET_CONTRACT_LAB', labContract)
+      commit('SET_CONTRACT_ACCOUNT', accountContract)
+      commit('SET_CONTRACT_SPECIMEN', specimenContract)
     }
   },
   getters: {

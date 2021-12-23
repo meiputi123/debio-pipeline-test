@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "debio-customer-ui.name" -}}
+{{- define "debio-frontend.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "debio-customer-ui.fullname" -}}
+{{- define "debio-frontend.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "debio-customer-ui.chart" -}}
+{{- define "debio-frontend.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "debio-customer-ui.labels" -}}
-helm.sh/chart: {{ include "debio-customer-ui.chart" . }}
-{{ include "debio-customer-ui.selectorLabels" . }}
+{{- define "debio-frontend.labels" -}}
+helm.sh/chart: {{ include "debio-frontend.chart" . }}
+{{ include "debio-frontend.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "debio-customer-ui.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "debio-customer-ui.name" . }}
+{{- define "debio-frontend.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "debio-frontend.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "debio-customer-ui.serviceAccountName" -}}
+{{- define "debio-frontend.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "debio-customer-ui.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "debio-frontend.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -64,20 +64,34 @@ Create the name of the service account to use
 {{/*
 Create the name of recaptchaSiteKey secret.
 */}}
-{{- define "debio-customer-ui.recaptchaSiteKeySecretName" -}}
-{{- printf "%s-%s" (include "debio-customer-ui.fullname" .) "recaptcha-site-key" | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- define "debio-frontend.recaptchaSiteKeySecretName" -}}
+{{- printf "%s-%s" (include "debio-frontend.fullname" .) "recaptcha-site-key" | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create the name of debioEscrowETHAddress secret.
 */}}
-{{- define "debio-customer-ui.debioEscrowETHAddressSecretName" -}}
-{{- printf "%s-%s" (include "debio-customer-ui.fullname" .) "debio-escrow-eth-address" | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- define "debio-frontend.debioEscrowETHAddressSecretName" -}}
+{{- printf "%s-%s" (include "debio-frontend.fullname" .) "debio-escrow-eth-address" | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create the name of devDebioEscrowETHAddress secret.
+*/}}
+{{- define "debio-frontend.devDebioEscrowETHAddressSecretName" -}}
+{{- printf "%s-%s" (include "debio-frontend.fullname" .) "dev-debio-escrow-eth-address" | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create the name of daiContractAddress secret.
+*/}}
+{{- define "debio-frontend.daiContractAddressSecretName" -}}
+{{- printf "%s-%s" (include "debio-frontend.fullname" .) "dai-contract-address" | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create the name of debioApiKey secret.
 */}}
-{{- define "debio-customer-ui.debioApiKeySecretName" -}}
-{{- printf "%s-%s" (include "debio-customer-ui.fullname" .) "debio-api-key" | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- define "debio-frontend.debioApiKeySecretName" -}}
+{{- printf "%s-%s" (include "debio-frontend.fullname" .) "debio-api-key" | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}

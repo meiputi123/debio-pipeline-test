@@ -1,15 +1,14 @@
-import Vue from "vue"
-import Vuex from "vuex"
-import auth from "./auth"
-import ethereum from "./ethereum"
-import metamask from "./metamask"
-import testRequest from "./test-request"
-import substrate from "./substrate"
-import lab from "./lab"
-import wallet from "./wallet"
-import rating from "./rating"
-
-
+import Vue from 'vue'
+import Vuex from 'vuex'
+import auth from './auth'
+import ethereum from './ethereum'
+import metamask from './metamask'
+import testRequest from './testRequest'
+import substrate from './substrate'
+import lab from './lab'
+import feedback from './feedback'
+import registration from './registration'
+import wallet from './wallet'
 
 Vue.use(Vuex)
 Vue.config.devtools = true
@@ -22,8 +21,9 @@ export default new Vuex.Store({
     testRequest,
     substrate,
     lab,
-    wallet,
-    rating
+    feedback,
+    registration,
+    wallet
   },
   state: {
   },
@@ -31,6 +31,5 @@ export default new Vuex.Store({
   },
   actions: {
   },
-  getters: {}
+  getters: {},
 })
-

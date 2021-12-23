@@ -6,48 +6,48 @@
           "message": "Payment Success",
           "value": "id",
           "value_message": "dna_sample_tracking_id",
-          "route": "customer-payment-details",
-          "params": "id",
+          "route": "order-history-detail",
+          "params": "number",
           "identity": "customer_id"
         },
         "OrderCancelled": {
           "message": "New order cancelled",
           "value": "id",
           "value_message": "dna_sample_tracking_id",
-          "route": "customer-payment-details",
-          "params": "id",
+          "route": "order-history-detail",
+          "params": "number",
           "identity": "customer_id"
         },
         "OrderCreated": {
           "message": "New order created",
           "value": "id",
           "value_message": "dna_sample_tracking_id",
-          "route": "customer-payment-details",
-          "params": "id",
+          "route": "order-history-detail",
+          "params": "number",
           "identity": "customer_id"
         },
         "OrderSuccess": {
           "message": "Order completed",
           "value": "id",
           "value_message": "dna_sample_tracking_id",
-          "route": "customer-payment-details",
-          "params": "id",
+          "route": "order-history-detail",
+          "params": "number",
           "identity": "customer_id"
         },
         "OrderRefunded": {
           "message": "Order rejected or returned",
           "value": "id",
           "value_message": "dna_sample_tracking_id",
-          "route": "customer-payment-details",
-          "params": "id",
+          "route": "order-history-detail",
+          "params": "number",
           "identity": "customer_id"
         },
         "OrderFailed": {
           "message": "Order failed to create",
           "value": "id",
           "value_message": "dna_sample_tracking_id",
-          "route": "customer-payment-details",
-          "params": "id",
+          "route": "order-history-detail",
+          "params": "number",
           "identity": "customer_id"
         }
       },
@@ -101,19 +101,27 @@
           "identity": "owner_id"
         }
       },
-      "rewards": {
-        "RewardFunds": {
-          "message": "Congrats! You’ve got ",
-          "value": 0,
-          "value_message": 1,
-          "route": "",
-          "params": "",
-          "identity": 0
-        }
-      },
       "electronicMedicalRecord": null
     },
     "lab": {
+      "labs": {
+        "LabRegistered": {
+          "message": "Your verification request has been submitted.",
+          "value": 0,
+          "value_message": "",
+          "route": "",
+          "params": "",
+          "identity": 1
+        },
+        "LabUpdateVerificationStatus": {
+          "message": "",
+          "value": 0,
+          "value_message": "Your account has been",
+          "route": "",
+          "params": "",
+          "identity": 1
+        }
+      },
       "orders": {
         "OrderPaid": {
           "message": "New order in.",
@@ -188,6 +196,26 @@
           "route": "lab-process",
           "params": "number",
           "identity": "lab_id"
+        }
+      },
+      "rewards": {
+        "RewardFunds": {
+          "message": "Congrats! You’ve got ",
+          "value": 0,
+          "value_message": 1,
+          "route": "",
+          "params": "",
+          "identity": 0
+        }
+      },
+      "services": {
+        "ServiceCreated": {
+          "message": "",
+          "value": "id",
+          "value_message": "Congrats! You have successfully added your new service",
+          "route": "lab-dashboard-services-detail",
+          "params": "id",
+          "identity": "ownerId"
         }
       }
     }

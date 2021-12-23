@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "debio-customer-ui.fullname" . }}
+  name: {{ include "debio-frontend.fullname" . }}
   labels:
-    {{- include "debio-customer-ui.labels" . | nindent 4 }}
+    {{- include "debio-frontend.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "debio-customer-ui.fullname" . }}
+    name: {{ include "debio-frontend.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

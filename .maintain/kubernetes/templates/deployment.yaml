@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "debio-customer-ui.fullname" . }}
+  name: {{ include "debio-frontend.fullname" . }}
   labels:
-    {{- include "debio-customer-ui.labels" . | nindent 4 }}
+    {{- include "debio-frontend.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "debio-customer-ui.selectorLabels" . | nindent 6 }}
+      {{- include "debio-frontend.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "debio-customer-ui.selectorLabels" . | nindent 8 }}
+        {{- include "debio-frontend.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "debio-customer-ui.serviceAccountName" . }}
+      serviceAccountName: {{ include "debio-frontend.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       {{- with .Values.nodeSelector }}
@@ -48,11 +48,15 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            {{- if .Values.config.debioBackendURL }}
+            - name: VUE_APP_DEBIO_BACKEND_URL
+              value: "{{ .Values.config.debioBackendURL }}"
+            {{- end }}
             {{- if .Values.config.recaptchaSiteKeyy }}
             - name: VUE_APP_RECAPTCHA_SITE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "debio-customer-ui.recaptchaSiteKeySecretName" . }}
+                  name: {{ include "debio-frontend.recaptchaSiteKeySecretName" . }}
                   key: recaptchaSiteKey
             {{- end }}
             {{- if .Values.config.appRole }}
@@ -67,26 +71,60 @@ spec:
             - name: VUE_APP_DEBIO_ESCROW_ETH_ADDRESS
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "debio-customer-ui.debioEscrowETHAddressSecretName" . }}
+                  name: {{ include "debio-frontend.debioEscrowETHAddressSecretName" . }}
                   key: debioEscrowETHAddress
             {{- end }}
             {{- if .Values.config.debioSubstrateWs }}
             - name: VUE_APP_DEBIO_SUBSTRATE_WS
               value: "{{ .Values.config.debioSubstrateWs }}"
             {{- end }}
+            {{- if .Values.config.urlFaucet }}
+            - name: VUE_APP_URL_FAUCET
+              value: "{{ .Values.config.urlFaucet }}"
+            {{- end }}
             {{- if .Values.config.web3Rpc }}
             - name: VUE_APP_WEB3_RPC
               value: "{{ .Values.config.web3Rpc }}"
             {{- end }}
-            {{- if .Values.config.debioBackendApi }}
-            - name: VUE_APP_BACKEND_API
-              value: "{{ .Values.config.debioBackendApi }}"
+            {{- if .Values.config.devDebioBackendUrl }}
+            - name: VUE_APP_DEV_DEBIO_BACKEND_URL
+              value: "{{ .Values.config.devDebioBackendUrl }}"
+            {{- end }}
+            {{- if .Values.config.devDebioUseTokenName }}
+            - name: VUE_APP_DEV_DEBIO_USE_TOKEN_NAME
+              value: "{{ .Values.config.devDebioUseTokenName }}"
+            {{- end }}
+            {{- if .Values.config.devDebioEscrowETHAddress }}
+            - name: VUE_APP_DEV_DEBIO_ESCROW_ETH_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "debio-frontend.devDebioEscrowETHAddressSecretName" . }}
+                  key: devDebioEscrowETHAddress
+            {{- end }}
+            {{- if .Values.config.devDebioSubstrateWs }}
+            - name: VUE_APP_DEV_DEBIO_SUBSTRATE_WS
+              value: "{{ .Values.config.devDebioSubstrateWs }}"
+            {{- end }}
+            {{- if .Values.config.devUrlFaucet }}
+            - name: VUE_APP_DEV_URL_FAUCET
+              value: "{{ .Values.config.devUrlFaucet }}"
+            {{- end }}
+            {{- if .Values.config.devWeb3Rpc }}
+            - name: VUE_APP_DEV_WEB3_RPC
+              value: "{{ .Values.config.devWeb3Rpc }}"
+            {{- end }}
+            {{- if .Values.config.daiContractAddress }}
+            - name: VUE_APP_DAI_CONTRACT_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "debio-frontend.daiContractAddressSecretName" . }}
+                  key: daiContractAddress
             {{- end }}
             {{- if .Values.config.debioApiKey }}
             - name: VUE_APP_DEBIO_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "debio-customer-ui.debioApiKeySecretName" . }}
+                  name: {{ include "debio-frontend.debioApiKeySecretName" . }}
                   key: debioApiKey
             {{- end }}
           ports:
