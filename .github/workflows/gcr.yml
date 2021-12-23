@@ -35,7 +35,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.3.0
+        uses: google-github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
@@ -94,8 +94,8 @@ jobs:
           push: true
           file: .maintain/docker/Dockerfile
           tags: |
-            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
-            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/latest-pre-alpha
+            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:${{ needs.compute-build-info.outputs.sha_short }}-${{ needs.compute-build-info.outputs.date }}
+            gcr.io/${{ secrets.DEV_GCP_PROJECT_ID }}/${{ github.repository }}:latest-pre-alpha
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       # Temp fix
@@ -121,7 +121,7 @@ jobs:
           fetch-depth: 0
       - name: Set up Cloud SDK
         if: "${{ env.DEPLOY == 'true' }}"
-        uses: google-github-actions/setup-gcloud@v0.3.0
+        uses: google-github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
