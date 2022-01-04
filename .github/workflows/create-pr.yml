@@ -32,13 +32,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Add directory and file
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ steps.secrets.outputs.SSH_HOST }}
-          username: ${{ steps.secrets.outputs.SSH_USERNAME }}
-          key: ${{ steps.secrets.outputs.SSH_KEY }}
-          port: ${{ steps.secrets.outputs.SSH_PORT }}
-          script: |
+        shell: bash
+        run: |
             mkdir -p test-dir
             touch test-dir/test.text
       - name: pull-request
