@@ -39,7 +39,7 @@ jobs:
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
-          source_branch: "benchmark"
+          source_branch: ""
           destination_branch: "main"
           pr_title: "Pulling ${{ github.ref }} into main"
           pr_body: ":crown: *An automated PR*"
