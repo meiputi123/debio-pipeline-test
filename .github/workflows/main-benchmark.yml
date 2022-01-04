@@ -1,12 +1,12 @@
-name: Main Benchmark automation
+name: Benchmark automation
 
 on:
   push:
     branches:
-      - main-benchmark
+      - benchmark
 
 concurrency:
-  group: main-benchmark-automation
+  group: benchmark-automation
 
 jobs:
   compute-build-info:
