@@ -35,7 +35,7 @@ jobs:
         shell: bash
         run: |
             mkdir -p benchmark
-            touch benchmark/benchmark.text
+            touch benchmark/benchmarks.text
       - name: push
         uses: github-actions-x/commit@v2.8
         with:
