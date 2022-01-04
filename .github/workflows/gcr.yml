@@ -1,12 +1,12 @@
-name: Main automation
+name: Gcr automation
 
 on:
   push:
     branches:
-      - main
+      - gcr
 
 concurrency:
-  group: main-automation
+  group: gcr-automation
 
 jobs:
   compute-build-info:
