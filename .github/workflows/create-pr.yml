@@ -36,14 +36,9 @@ jobs:
         run: |
             mkdir -p benchmark
             touch benchmark/benchmarks.text
-      - name: push
-        uses: github-actions-x/commit@v2.8
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-branch: main
-          commit-message: 'auto-generated benchmarks'
-          name: debio-devops
-          rebase: 'true' # pull and rebase before commit
+          commit_message: auto-generated benchmarks
       - name: pull-request
         id: open-pr
         uses: repo-sync/pull-request@v2
