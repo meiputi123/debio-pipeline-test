@@ -31,6 +31,7 @@ jobs:
     needs: [compute-build-info]
     steps:
       - uses: actions/checkout@v2
+        ref: benchmark
       - name: Add directory and file
         shell: bash
         run: |
