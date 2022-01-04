@@ -28,7 +28,7 @@ jobs:
 
   pull-request:
     runs-on: ubuntu-latest
-    needs: [compute-build-info,changes]
+    needs: [compute-build-info]
     steps:
       - uses: actions/checkout@v2
       - name: Add directory and file
