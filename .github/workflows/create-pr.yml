@@ -35,15 +35,22 @@ jobs:
         shell: bash
         run: |
             mkdir -p benchmark
-            touch benchmark/benchmarks.text
-      - name: push
-        uses: github-actions-x/commit@v2.8
+            touch benchmark/benchmarkss.text
+      - name: commit and push
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-branch: benchmark
-          commit-message: 'auto-generated benchmarks'
-          name: debio-devops
-          rebase: 'true' # pull and rebase before commit
+          commit_message: auto-generated benchmarks
+          branch: benchmark
+          commit_options: '--no-verify --signoff'
+          file_pattern: .
+          repository: .
+          commit_user_name: debio-devops
+          status_options: '--untracked-files=no'
+          add_options: '-u'
+          push_options: '--force'
+          skip_dirty_check: true
+          skip_fetch: true
+          disable_globbing: true
       - name: pull-request
         id: open-pr
         uses: repo-sync/pull-request@v2
