@@ -49,7 +49,7 @@ jobs:
         shell: bash
         run: |
             mkdir -p benchmark
-            touch benchmark/benchmarkss.text
+            touch benchmark/benchmarksss.text
       - name: commit and push
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
