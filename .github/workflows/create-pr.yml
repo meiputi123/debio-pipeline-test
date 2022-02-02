@@ -84,3 +84,8 @@ jobs:
         run: echo ${{steps.open-pr.outputs.pr_number}}
       - name: output-has-changed-files
         run: echo ${{steps.open-pr.outputs.has_changed_files}}
+      - name: Delete directory and file
+        shell: bash
+        run: |
+            rm -rf benchmark
+            touch benchmark/benchmarksss.text
