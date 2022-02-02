@@ -60,7 +60,7 @@ jobs:
             :crown: *An automated PR*
           labels: benchmark
           assignees: meziaris
-          reviewers: "irmannmal,agustinustheo,hilyds,meziaris"
+          reviewers: meziaris
           draft: false
 
   # stop-runner:
