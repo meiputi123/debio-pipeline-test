@@ -37,7 +37,7 @@ jobs:
       - name: Remove directory and file
         shell: bash
         run: |
-          rm -rf benchmarQk
+          rm -rf benchmark
       - name: Add directory and file
         shell: bash
         run: |
@@ -57,7 +57,7 @@ jobs:
           signoff: false
           branch: benchmark
           delete-branch: true
-          title: "Update Benchmark*"
+          title: "Update Benchmark"
           body: |
             Update benchmark
 
