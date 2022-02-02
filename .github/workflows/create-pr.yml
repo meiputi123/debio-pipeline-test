@@ -34,11 +34,19 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Remove directory and file
+        shell: bash
+        run: |
+          rm -rf benchmarQk
       - name: Add directory and file
         shell: bash
         run: |
-            mkdir -p benchmark
-            touch benchmark/benchmarksss.text
+          mkdir -p benchmark
+          touch benchmark/benchmark.text
+
+          tee -a benchmark/benchmark.text <<EOF
+          ${{ needs.compute-build-info.outputs.sha_short }}
+          EOF
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
@@ -64,7 +72,6 @@ jobs:
           team-reviewers: |
             owners
             maintainers
-          milestone: 1
           draft: false
       - name: Check outputs
         run: |
