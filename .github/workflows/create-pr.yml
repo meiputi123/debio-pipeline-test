@@ -3,7 +3,7 @@ name: Main automation
 on:
   push:
     branches:
-      - main
+      - test
 
 concurrency:
   group: main-automation
