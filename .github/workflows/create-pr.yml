@@ -59,7 +59,7 @@ jobs:
           file_pattern: .
           repository: .
           commit_user_name: debio-devops
-          status_options: '--untracked-files=no'
+          status_options: '--untracked-files=yes'
           add_options: '-u'
           push_options: '--force'
           skip_dirty_check: true
