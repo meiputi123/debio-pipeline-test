@@ -57,13 +57,12 @@ jobs:
           signoff: false
           branch: benchmark
           delete-branch: true
-          title: ":crown: *An automated PR - Benchmark*"
-          body: ":crown: *An automated PR*"
+          title: "Update Benchmark*"
+          body: |
+            Update benchmark
+
+            :crown: *An automated PR*
           labels: benchmark
           assignees: meziaris
           reviewers: meziaris
           draft: false
-      - name: Check outputs
-        run: |
-          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
