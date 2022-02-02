@@ -26,25 +26,14 @@ jobs:
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
           echo "::set-output name=date::$(date +'%Y%m%d')"
 
-  # create-branch:
-  #   runs-on: ubuntu-latest
-  #   needs: [compute-build-info]
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Create Branch
-  #       uses: peterjgrainger/action-create-branch@v2.0.1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         branch: 'benchmark'
-
   pull-request:
     runs-on: ubuntu-latest
     needs: [compute-build-info]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
-          ref: benchmark
+          fetch-depth: 0
       - name: Add directory and file
         shell: bash
         run: |
