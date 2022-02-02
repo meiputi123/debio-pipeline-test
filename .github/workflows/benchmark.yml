@@ -9,25 +9,25 @@ concurrency:
   group: benchmark-automation
 
 jobs:
-  start-runner:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
-        with:
-          project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
-          export_default_credentials: true
-      - name: start runner
-        run: gcloud compute instances start github-runner-debio-node-benchmark --zone=australia-southeast1-b
+  # start-runner:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Set up Cloud SDK
+  #       uses: google-github-actions/setup-gcloud@master
+  #       with:
+  #         project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
+  #         service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
+  #         export_default_credentials: true
+  #     - name: start runner
+  #       run: gcloud compute instances start github-runner-debio-node-benchmark --zone=australia-southeast1-b
 
   self-host:
-    runs-on: [self-hosted]
-    needs: start-runner
+    runs-on: [ubuntu-latest]
+    # needs: start-runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,38 +35,47 @@ jobs:
           fetch-depth: 0
       - name: benchmarking
         if: ${{ github.event.issue.pull_request && github.event.comment.body == '/benchmark'}}
-        run: echo "Benchmarking!"
+        run: |
+          rm -rf benchmark
+          mkdir -p benchmark
+          touch benchmark/benchmark.text
 
-  pull-request:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: pull-request
-      uses: repo-sync/pull-request@v2
-      with:
-        source_branch: ""
-        destination_branch: "main"
-        pr_title: "Pulling ${{ github.ref }} into main"
-        pr_body: ":crown: *An automated PR*"
-        pr_template: ".github/pull_request_template.md"
-        pr_reviewer: "irmannmal,agustinustheo,hilyds,meziaris"
-        pr_assignee: "debio-devops"
-        pr_label: "auto-pr"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+          tee -a benchmark/benchmark.text <<EOF
+          ${{ needs.compute-build-info.outputs.sha_short }}
+          EOF
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update Benchmark
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: benchmark
+          delete-branch: true
+          title: "Update Benchmark"
+          body: |
+            Update benchmark
 
-  stop-runner:
-    runs-on: ubuntu-latest
-    needs: self-host
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
-        with:
-          project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
-          export_default_credentials: true
-      - name: stop runner
-        run: gcloud compute instances stop github-runner-debio-node-benchmark --zone=australia-southeast1-b
+            :crown: *An automated PR*
+          labels: benchmark
+          assignees: meziaris
+          reviewers: "irmannmal,agustinustheo,hilyds,meziaris"
+          draft: false
+
+  # stop-runner:
+  #   runs-on: ubuntu-latest
+  #   needs: self-host
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Set up Cloud SDK
+  #       uses: google-github-actions/setup-gcloud@master
+  #       with:
+  #         project_id: ${{ secrets.DEV_GCP_PROJECT_ID }}
+  #         service_account_key: ${{ secrets.DEV_GCP_SA_KEY }}
+  #         export_default_credentials: true
+  #     - name: stop runner
+  #       run: gcloud compute instances stop github-runner-debio-node-benchmark --zone=australia-southeast1-b
