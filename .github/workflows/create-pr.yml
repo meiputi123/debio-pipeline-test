@@ -26,17 +26,47 @@ jobs:
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
           echo "::set-output name=date::$(date +'%Y%m%d')"
 
-  pull-request:
+  create-branch:
     runs-on: ubuntu-latest
     needs: [compute-build-info]
     steps:
       - uses: actions/checkout@v2
+      - name: Create Branch
+        uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: 'benchmark'
+
+  pull-request:
+    runs-on: ubuntu-latest
+    needs: [compute-build-info,create-branch]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: benchmark
       - name: Add directory and file
         shell: bash
         run: |
-            mkdir -p test-dir
-            touch test-dir/test.text
+            mkdir -p benchmark
+            touch benchmark/benchmarksss.text
+      - name: commit and push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: auto-generated benchmarks
+          branch: benchmark
+          commit_options: '--no-verify --signoff'
+          file_pattern: .
+          repository: .
+          commit_user_name: debio-devops
+          status_options: '--untracked-files=no'
+          add_options: '-u'
+          push_options: '--force'
+          skip_dirty_check: true
+          skip_fetch: true
+          disable_globbing: true
       - name: pull-request
+        id: open-pr
         uses: repo-sync/pull-request@v2
         with:
           source_branch: "benchmark"
@@ -48,3 +78,14 @@ jobs:
           pr_assignee: "debio-devops"
           pr_label: "auto-pr"
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: output-url
+        run: echo ${{steps.open-pr.outputs.pr_url}}
+      - name: output-number
+        run: echo ${{steps.open-pr.outputs.pr_number}}
+      - name: output-has-changed-files
+        run: echo ${{steps.open-pr.outputs.has_changed_files}}
+      - name: Delete directory and file
+        shell: bash
+        run: |
+            rm -rf benchmark
+            touch benchmark/benchmarksss.text
