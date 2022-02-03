@@ -110,8 +110,9 @@ jobs:
             :crown: *An automated PR*
           labels: benchmark
           assignees: meziaris
-          reviewers: meziaris
+          # reviewers: meziaris
           draft: false
+
   # stop-runner:
   #   runs-on: ubuntu-latest
   #   needs: self-host
