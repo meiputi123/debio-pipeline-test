@@ -89,16 +89,19 @@ jobs:
           tee -a benchmark/benchmark.text <<EOF
           ${{ needs.compute-build-info.outputs.sha_short }}
           EOF
+
+          ls -la
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          push-to-fork: ${{ fromJSON(steps.get-pr.outputs.result).head.repo.full_name }}
+          # push-to-fork: ${{ fromJSON(steps.get-pr.outputs.result).head.repo.full_name }}
           commit-message: Update Benchmark
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: ${{ fromJSON(steps.get-pr.outputs.result).head.ref }}
+          branch: auto-benchmark
           delete-branch: true
           title: "Update Benchmark"
           body: |
@@ -109,7 +112,6 @@ jobs:
           assignees: meziaris
           reviewers: meziaris
           draft: false
-
   # stop-runner:
   #   runs-on: ubuntu-latest
   #   needs: self-host
