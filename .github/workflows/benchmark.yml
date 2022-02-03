@@ -91,7 +91,7 @@ jobs:
           EOF
 
           ls -la
-          
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
@@ -101,7 +101,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: ${{ fromJSON(steps.get-pr.outputs.result).head.ref }}
+          branch: auto-benchmark
           delete-branch: true
           title: "Update Benchmark"
           body: |
