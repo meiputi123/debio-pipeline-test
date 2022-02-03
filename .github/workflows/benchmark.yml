@@ -108,11 +108,10 @@ jobs:
 
           git status
           git remote -v
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.PR_KEY }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           # push-to-fork: meziaris/debio-pipeline-test
           commit-message: Update Benchmark
           committer: GitHub <noreply@github.com>
