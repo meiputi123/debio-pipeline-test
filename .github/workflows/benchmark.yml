@@ -90,6 +90,11 @@ jobs:
           ${{ needs.compute-build-info.outputs.sha_short }}
           EOF
 
+          echo "---------------"
+
+          git status
+          git remote -v
+
           ls -la
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
