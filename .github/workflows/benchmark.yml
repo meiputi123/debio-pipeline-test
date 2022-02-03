@@ -96,7 +96,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          push-to-fork: ${{ fromJSON(steps.get-pr.outputs.result).head.repo.full_name }}
+          # push-to-fork: ${{ fromJSON(steps.get-pr.outputs.result).head.repo.full_name }}
           commit-message: Update Benchmark
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
