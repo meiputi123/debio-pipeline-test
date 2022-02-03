@@ -113,7 +113,7 @@ jobs:
             :crown: *An automated PR*
           labels: benchmark
           assignees: meziaris
-          # reviewers: meziaris
+          reviewers: meiputi123
           draft: false
 
   # stop-runner:
