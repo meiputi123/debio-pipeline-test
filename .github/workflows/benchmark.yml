@@ -112,7 +112,6 @@ jobs:
           assignees: meziaris
           reviewers: meziaris
           draft: false
-
   # stop-runner:
   #   runs-on: ubuntu-latest
   #   needs: self-host
