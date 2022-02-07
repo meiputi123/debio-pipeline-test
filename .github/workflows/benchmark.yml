@@ -99,7 +99,7 @@ jobs:
           cat benchmark/benchmark.text
 
           tee -a benchmark/benchmark.text <<EOF
-          ${{ needs.compute-build-info.outputs.sha_short }} - ${{ needs.compute-build-info.outputs.date }}-test-benchmark-123
+          ${{ needs.compute-build-info.outputs.sha_short }} - ${{ needs.compute-build-info.outputs.date }}
           EOF
           
           cat benchmark/benchmark.text
