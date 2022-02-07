@@ -97,10 +97,6 @@ jobs:
         if: ${{ github.event.issue.pull_request && github.event.comment.body == '/benchmark'}}
         run: |
           cat benchmark/benchmark.text
-          
-          rm -rf benchmark
-          mkdir -p benchmark
-          touch benchmark/benchmark.text
 
           tee -a benchmark/benchmark.text <<EOF
           ${{ needs.compute-build-info.outputs.sha_short }} - ${{ needs.compute-build-info.outputs.date }}-test-benchmark-123
