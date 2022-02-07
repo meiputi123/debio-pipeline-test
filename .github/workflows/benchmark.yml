@@ -95,7 +95,9 @@ jobs:
       #         --template="./.maintain/pallet-weight-template.hbs"
       - name: benchmarking
         if: ${{ github.event.issue.pull_request && github.event.comment.body == '/benchmark'}}
-        run: |          
+        run: |
+          cat benchmark/benchmark.text
+          
           rm -rf benchmark
           mkdir -p benchmark
           touch benchmark/benchmark.text
