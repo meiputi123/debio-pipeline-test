@@ -89,7 +89,6 @@ jobs:
           EOF
 
           ls -la
-          
           cat benchmark/benchmark.text
 
           git status
