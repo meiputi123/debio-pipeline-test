@@ -64,7 +64,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 2
 #           repository: ${{ fromJSON(steps.get-pr.outputs.result).head.repo.full_name }}
 #           ref: ${{ fromJSON(steps.get-pr.outputs.result).head.ref }} # or .head.sha, .head.ref for branch name
       # - name: Install toolchain
