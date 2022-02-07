@@ -125,7 +125,6 @@ jobs:
           body: |
             Update benchmark
             
-            
             :crown: *An automated PR*
           labels: benchmark
           assignees: meziaris
