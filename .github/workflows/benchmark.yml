@@ -106,7 +106,7 @@ jobs:
 
           ls -la
           
-          git remote set-url origin ${{ github.repository }}
+          git remote set-url origin https://github.com/${{ github.repository }}
 
           git status
           git remote -v
@@ -124,7 +124,6 @@ jobs:
           title: "Update Benchmark"
           body: |
             Update benchmark
-            
             
             :crown: *An automated PR*
           labels: benchmark
