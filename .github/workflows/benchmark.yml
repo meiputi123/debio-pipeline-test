@@ -101,13 +101,10 @@ jobs:
           touch benchmark/benchmark.text
 
           tee -a benchmark/benchmark.text <<EOF
-          ${{ needs.compute-build-info.outputs.sha_short }} - ${{ needs.compute-build-info.outputs.date }}-test-PR-@
+          ${{ needs.compute-build-info.outputs.sha_short }} - ${{ needs.compute-build-info.outputs.date }}-test-benchmark
           EOF
           
           cat benchmark/benchmark.text
-      - uses: actions/checkout@v2
-        with:
-          ref: auto-benchmark
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
