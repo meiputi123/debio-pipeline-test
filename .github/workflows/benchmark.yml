@@ -85,7 +85,7 @@ jobs:
           touch benchmark/benchmark.text
 
           tee -a benchmark/benchmark.text <<EOF
-          ${{ needs.compute-build-info.outputs.sha_short }} - ${{ needs.compute-build-info.outputs.date }}-from-PR
+          ${{ needs.compute-build-info.outputs.sha_short }} - ${{ needs.compute-build-info.outputs.date }}-test-PR
           EOF
 
           ls -la
