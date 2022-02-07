@@ -105,6 +105,8 @@ jobs:
           EOF
 
           ls -la
+          
+          git remote set-url origin ${{ github.repository }}
 
           git status
           git remote -v
