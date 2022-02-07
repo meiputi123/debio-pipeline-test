@@ -105,9 +105,6 @@ jobs:
           EOF
           
           cat benchmark/benchmark.text
-      - uses: actions/checkout@v2
-        with:
-          ref: auto-benchmark
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
