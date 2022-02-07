@@ -93,6 +93,7 @@ jobs:
       #         --raw \
       #         --output="./pallets/electronic-medical-record/src/weights.rs" \
       #         --template="./.maintain/pallet-weight-template.hbs"
+
       - name: benchmarking
         if: ${{ github.event.issue.pull_request && github.event.comment.body == '/benchmark'}}
         run: |
